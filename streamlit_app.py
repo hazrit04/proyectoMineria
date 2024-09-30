@@ -25,7 +25,7 @@ st.title("Análisis de Datos del Programa MiBici")
 #------------------------------------------------------------------
 st.sidebar.markdown("## Menú de Configuración")
 st.sidebar.divider()
-
+"""
 #----- LECTURA DE LOS DATOS ---------------------------------------
 # Directorio donde están los archivos CSV
 directorio = './Datos_MiBici'
@@ -118,3 +118,4 @@ else:
 #----- DESPEDIDA --------------------------------------------------
 #------------------------------------------------------------------
 st.markdown("### ¡Gracias por usar la aplicación de análisis de MiBici!")
+"""
