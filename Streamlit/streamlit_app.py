@@ -19,13 +19,13 @@ import numpy as np
 
 #----- Renderizado del Texto --------------------------------------
 st.title("Análisis de Datos del Programa MiBici")
-"""
+
 #------------------------------------------------------------------
 #----- Configuración de los Elementos del DashBoard ---------------
 #------------------------------------------------------------------
 st.sidebar.markdown("## Menú de Configuración")
 st.sidebar.divider()
-
+"""
 #----- LECTURA DE LOS DATOS ---------------------------------------
 # Directorio donde están los archivos CSV
 directorio = './Datos_MiBici'
