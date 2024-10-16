@@ -56,6 +56,7 @@ st.sidebar.divider()
 st.subheader('Agrupación de viajes por estaciones')
 st.markdown("Se tomó únicamente el primer tercio para que se alcanzara a ver claramente a qué estación pertenece cada barra.")
 st.image(io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png"))
+st.divider()
 
 #----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
 st.subheader('Gráfica con número de viajes por mes de cada año')
@@ -81,90 +82,87 @@ elif histo_selected == '2024':
 else:
     st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2015.png"))
 
+st.divider()
+
 #----- VARIACIÓN TIEMPO Y DISTANCIA DE VIAJE -----------------------------------------
 #Definición de las columnas
 colum_izq, colum_der = st.columns(2)
 
 #Título para el gráfico
 colum_izq.subheader('Promedio de tiempo de viaje')
-
 colum_izq.image(io.imread(r"./Imagenes_Proyecto/Promedios_tiempo_viajes.png"))
-"""
-#----- GRÁFICO DE LÍNEAS PARA LAS GANANCIAS -----------------------
-#Renderización del gráfico
-colum_izq.pyplot(fig1)
+colum_izq.markdown("El tiempo promedio de un viaje es: 15.244 minutos.")
 
 #Título para el gráfico
-colum_der.subheader('Ganancias')
+colum_der.subheader('Aproximación de distancia recorrida')
+colum_der.image(io.imread(r"./Imagenes_Proyecto/Aproximacion_distancia_recorrida.png"))
+colum_der.markdown("La distancia promedio recorrida es: 3.56 km.")
 
-#Inicialización del gráfico
-fig2, ax2 = plt.subplots()
+st.divider()
 
-#Generación del gráfico
-if ganan_selected == 'Iñaki González':
-    periodo_df = datos_df.iloc[0]
-elif ganan_selected == 'María Cázares':
-    periodo_df = datos_df.iloc[1]
-elif ganan_selected == 'José García':
-    periodo_df = datos_df.iloc[2]
-elif ganan_selected == 'Jérémie Muñoz':
-    periodo_df = datos_df.iloc[3]
-elif ganan_selected == 'Agnès Villalón':
-    periodo_df = datos_df.iloc[4]
-elif ganan_selected == 'Bérénice Pitkämäki':
-    periodo_df = datos_df.iloc[5]
-elif ganan_selected == 'Geneviève Rukajärvi':
-    periodo_df = datos_df.iloc[6]
-elif ganan_selected == 'Hélène Ñuñoz':
-    periodo_df = datos_df.iloc[7]
-elif ganan_selected == 'Ñaguí Grönholm':
-    periodo_df = datos_df.iloc[8]
-elif ganan_selected == 'Iván Földváry':
-    periodo_df = datos_df.iloc[9]
+#----- GRÁFICO DE COMPARACIÓN TIEMPO Y RUTA / GÉNERO -----------------------------------------
+st.subheader('Comparación del tiempo y la ruta con el género de la persona')
+st.markdown("Se utilizó únicamente 1 parte de 1536 para que se viera claramente la gráfica con los datos divididos.")
+st.image(io.imread(r"./Imagenes_Proyecto/Comparacion_tiempo_ruta_genero.png"))
+
+st.divider()
+
+#----- GRÁFICO DE USO POR DÍAS DE SEMANA -----------------------------------------
+st.subheader('Uso de bicicleta según el día de la semana')
+# Generación del gráfico
+if sem_selected == '2016':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2016.png"))
+elif sem_selected == '2017':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2017.png"))
+elif sem_selected == '2018':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2018.png"))
+elif sem_selected == '2019':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2019.png"))
+elif sem_selected == '2020':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2020.png"))
+elif sem_selected == '2021':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2021.png"))
+elif sem_selected == '2022':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2022.png"))
+elif sem_selected == '2023':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2023.png"))
+elif sem_selected == '2024':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2024.png"))
 else:
-    periodo_df = datos_df
-periodo_df = periodo_df.transpose()
-periodo_df = periodo_df.to_frame()
-periodo_df = periodo_df.rename(columns = {1: 'MES'})
-periodo_df = periodo_df.drop(['NOMBRE','APELLIDO','CIUDAD'])
-plt.plot(periodo_df)
-ax2.set_title('Ganancias Mensuales por Persona')
-ax2.set_xlabel(ganan_selected)
-ax2.set_ylabel('Ganancias')
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafica_uso_dias_semana_2015.png"))
 
-#Renderización del gráfico
-colum_der.pyplot(fig2)
 st.divider()
 
-#----- GRÁFICO DE CORRELACIÓN DE LOS MESES ------------------------
+#----- TOTAL DE DINERO GASTADO ------------------------
 #Título para el gráfico
-st.subheader('Matriz de Correlación')
+st.subheader('Total de dinero gastado')
+st.image(io.imread(r"./Imagenes_Proyecto/Total_dinero_gastado.png"))
+st.markdown("En total, se gastó aproximadamente $1645683973.00 en la suma de todos los viajes en este rango de fechas.")
 
-#Inicialización del gráfico
-fig3, ax3 = plt.subplots()
-
-#Generación del gráfico
-df_corr = datos_df[mes_multi_selected].corr()
-sns.heatmap(df_corr, annot = anotacion, fmt='.2f', cmap = color_selected)
-
-#Renderización del gráfico
-st.pyplot(fig3)
 st.divider()
+#----- GRÁFICAS POS USO DE ESTACIONES ------------------------
+#Título para el gráfico
+st.subheader('Uso de estaciones')
+# Generación del gráfico
+if estacion_selected == '2016':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2016.png"))
+elif estacion_selected == '2017':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2017.png"))
+elif estacion_selected == '2018':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2018.png"))
+elif estacion_selected == '2019':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2019.png"))
+elif estacion_selected == '2020':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2020.png"))
+elif estacion_selected == '2021':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2021.png"))
+elif estacion_selected == '2022':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2022.png"))
+elif estacion_selected == '2023':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2023.png"))
+elif estacion_selected == '2024':
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2024.png"))
+else:
+    st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2015.png"))
 
-# GANANCIAS DE LA CIUDAD
-st.title("Ganancias por Ciudad")
-
-# Grafico sobre ganancias por ciudad
-ciudades = ganancias_ciudad['Ciudad']
-gan_ciu = ganancias_ciudad['Ganancia']
-
-fig4, ax4 = plt.subplots()
-
-ax4.bar(ciudades, gan_ciu, color='blue')
-ax4.set_title("Ganancias por Ciudad")
-ax4.set_xlabel("Ciudades")
-ax4.set_xticklabels(ciudades, rotation=75)
-ax4.set_ylabel("Ganancias")
-
-st.pyplot(fig4)
-"""
+st.divider()
