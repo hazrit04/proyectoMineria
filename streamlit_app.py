@@ -40,22 +40,46 @@ st.sidebar.divider()
 
 #----- GRÁFICO DE USO POR DIAS DE SEMANA -----------------------
 #----- Selector del Año -----------------------------------
-ganan_selected = st.sidebar.selectbox('Elección del Año para el Uso de Bicicleta por Año: ', vars_year, index = default_hist)
+sem_selected = st.sidebar.selectbox('Elección del Año para el Uso de Bicicleta por Año: ', vars_year, index = default_hist)
 st.sidebar.divider()
 
 #----- GRÁFICO DE USO DE ESTACIONES -----------------------
 #----- Selector del Año -----------------------------------
-ganan_selected = st.sidebar.selectbox('Elección del Año para el Uso dE las Estaciones de MiBici: ', vars_year, index = default_hist)
+estacion_selected = st.sidebar.selectbox('Elección del Año para el Uso de las Estaciones de MiBici: ', vars_year, index = default_hist)
 st.sidebar.divider()
 
 #------------------------------------------------------------------
 #----- Configuración de los Elementos del Panel Central -----------
 #------------------------------------------------------------------
 
-#----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
-st.subheader('Agrupación viajes por estaciones')
-#io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png")
+#----- VIAJES POR ESTACIONES -----------------------------------------
+st.subheader('Agrupación de viajes por estaciones')
+st.markdown("Se tomó únicamente el primer tercio para que se alcanzara a ver claramente a qué estación pertenece cada barra.")
 st.image(io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png"))
+
+#----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
+st.subheader('Gráfica con número de viajes por mes de cada año')
+# Generación del gráfico
+if histo_selected == '2016':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2016.png"))
+elif histo_selected == '2017':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2017.png"))
+elif histo_selected == '2018':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2018.png"))
+elif histo_selected == '2019':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2019.png"))
+elif histo_selected == '2020':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2020.png"))
+elif histo_selected == '2021':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2021.png"))
+elif histo_selected == '2022':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2022.png"))
+elif histo_selected == '2023':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2023.png"))
+elif histo_selected == '2024':
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2024.png"))
+else:
+    st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2015.png"))
 """
 #----- HISTOGRAMA POR MES -----------------------------------------
 #Definición de las columnas
