@@ -80,24 +80,16 @@ elif histo_selected == '2024':
     st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2024.png"))
 else:
     st.image(io.imread(r"./Imagenes_Proyecto/Graficas_numeros_viajes_2015.png"))
-"""
-#----- HISTOGRAMA POR MES -----------------------------------------
+
+#----- VARIACIÓN TIEMPO Y DISTANCIA DE VIAJE -----------------------------------------
 #Definición de las columnas
 colum_izq, colum_der = st.columns(2)
 
 #Título para el gráfico
-colum_izq.subheader('Histograma')
+colum_izq.subheader('Promedio de tiempo de viaje')
 
-#Inicialización del gráfico
-fig1, ax1 = plt.subplots()
-
-#Generación del gráfico
-sns.set(style = "darkgrid")
-sns.histplot(data = datos_df[histo_selected])
-ax1.set_title('Histograma de Valores')
-ax1.set_xlabel(histo_selected)
-ax1.set_ylabel('Frecuencia')
-
+colum_izq.image(io.imread(r"./Imagenes_Proyecto/Promedios_tiempo_viajes.png"))
+"""
 #----- GRÁFICO DE LÍNEAS PARA LAS GANANCIAS -----------------------
 #Renderización del gráfico
 colum_izq.pyplot(fig1)
