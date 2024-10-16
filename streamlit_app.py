@@ -46,7 +46,6 @@ st.sidebar.divider()
 #----- GRÁFICO DE USO DE ESTACIONES -----------------------
 #----- Selector del Año -----------------------------------
 estacion_selected = st.sidebar.selectbox('Elección del Año para el Uso de las Estaciones de MiBici: ', vars_year, index = default_hist)
-st.sidebar.divider()
 
 #------------------------------------------------------------------
 #----- Configuración de los Elementos del Panel Central -----------
@@ -166,3 +165,15 @@ else:
     st.image(io.imread(r"./Imagenes_Proyecto/Grafico_uso_estaciones_2015.png"))
 
 st.divider()
+
+#----- MATRIZ DE CORRELACIÓN ------------------------
+#Título para el gráfico
+st.subheader('Correlación entre la edad, el día de la semana y el tiempode viaje')
+st.image(io.imread(r"./Imagenes_Proyecto/Correlacion_edad_dia_semana_tiempo_viaje.png"))
+
+st.divider()
+
+#----- BOXPLOT DE EDADES ------------------------
+#Título para el gráfico
+st.subheader('Año de nacimiento más común entre quienes usan bicicleta')
+st.image(io.imread(r"./Imagenes_Proyecto/Edades_Boxplot_Extra.png"))
