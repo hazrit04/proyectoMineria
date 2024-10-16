@@ -136,7 +136,7 @@ st.divider()
 #Título para el gráfico
 st.subheader('Total de dinero gastado')
 st.image(io.imread(r"./Imagenes_Proyecto/Total_dinero_gastado.png"))
-st.markdown("En total, se gastó aproximadamente $1645683973.00 en la suma de todos los viajes en este rango de fechas.")
+st.markdown("En total, se gastó aproximadamente $1,645'683,973.00 en la suma de todos los viajes en este rango de fechas.")
 
 st.divider()
 #----- GRÁFICAS POS USO DE ESTACIONES ------------------------
