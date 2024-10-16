@@ -168,7 +168,7 @@ st.divider()
 
 #----- MATRIZ DE CORRELACIÓN ------------------------
 #Título para el gráfico
-st.subheader('Correlación entre la edad, el día de la semana y el tiempode viaje')
+st.subheader('Correlación entre la edad, el día de la semana y el tiempo de viaje')
 st.image(io.imread(r"./Imagenes_Proyecto/Correlacion_edad_dia_semana_tiempo_viaje.png"))
 
 st.divider()
