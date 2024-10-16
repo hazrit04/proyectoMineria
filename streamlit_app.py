@@ -175,5 +175,5 @@ st.divider()
 
 #----- BOXPLOT DE EDADES ------------------------
 #Título para el gráfico
-st.subheader('Año de nacimiento más común entre quienes usan bicicleta')
+st.subheader('Año de nacimiento más común entre quienes usan MiBici')
 st.image(io.imread(r"./Imagenes_Proyecto/Edades_Boxplot_Extra.png"))
