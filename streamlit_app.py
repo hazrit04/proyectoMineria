@@ -12,6 +12,8 @@ import seaborn as sns
 import streamlit as st
 import os
 import numpy as np
+import random
+from skimage import io
 
 #------------------------------------------------------------------
 #----- Configuración Inicial del Panel Central --------------------
@@ -19,103 +21,133 @@ import numpy as np
 
 #----- Renderizado del Texto --------------------------------------
 st.title("Análisis de Datos del Programa MiBici")
+st.subheader(":blue[Para este proyecto se hizo un análisis de los datos del programa MiBici tomando en cuenta los meses de Enero a Junio desde el año 2015 a 2024.]")
 
 #------------------------------------------------------------------
 #----- Configuración de los Elementos del DashBoard ---------------
 #------------------------------------------------------------------
-st.sidebar.markdown("## Menú de Configuración")
+
+#----- Renderizado de la Imagen y el Título en el Dashboard -------
+st.sidebar.markdown("## MENÚ DE CONFIGURACIÓN")
 st.sidebar.divider()
+
+#----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
+#----- Selector del Año -------------------------------------------
+vars_year = ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024']
+default_hist = vars_year.index('2015')
+histo_selected = st.sidebar.selectbox('Elección del Año para el Número de Viajes mensuales: ', vars_year, index = default_hist)
+st.sidebar.divider()
+
+#----- GRÁFICO DE USO POR DIAS DE SEMANA -----------------------
+#----- Selector del Año -----------------------------------
+ganan_selected = st.sidebar.selectbox('Elección del Año para el Uso de Bicicleta por Año: ', vars_year, index = default_hist)
+st.sidebar.divider()
+
+#----- GRÁFICO DE USO DE ESTACIONES -----------------------
+#----- Selector del Año -----------------------------------
+ganan_selected = st.sidebar.selectbox('Elección del Año para el Uso dE las Estaciones de MiBici: ', vars_year, index = default_hist)
+st.sidebar.divider()
+
+#------------------------------------------------------------------
+#----- Configuración de los Elementos del Panel Central -----------
+#------------------------------------------------------------------
+
+#----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
+st.subheader('Agrupación viajes por estaciones')
+io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png")
 """
-#----- LECTURA DE LOS DATOS ---------------------------------------
-# Directorio donde están los archivos CSV
-directorio = './Datos_MiBici'
+#----- HISTOGRAMA POR MES -----------------------------------------
+#Definición de las columnas
+colum_izq, colum_der = st.columns(2)
 
-# Crear una lista con todos los archivos CSV desde 2014_12 hasta 2024_08
-archivos = [f'datos_abiertos_{year}_{str(month).zfill(2)}.csv' 
-            for year in range(2014, 2025) 
-            for month in range(1, 13) 
-            if not (year == 2014 and month < 12) and not (year == 2024 and month > 8)]
+#Título para el gráfico
+colum_izq.subheader('Histograma')
 
-# Leer y concatenar todos los archivos
-dataframes = []
-for archivo in archivos:
-    path = os.path.join(directorio, archivo)
-    if os.path.exists(path):
-        df = pd.read_csv(path)
-        year = int(archivo.split('_')[2])
-        df['Anio_viaje'] = year
-        dataframes.append(df)
-    else:
-        st.warning(f"Archivo no encontrado: {archivo}")
+#Inicialización del gráfico
+fig1, ax1 = plt.subplots()
 
-# Concatenar todos los DataFrames en uno solo
-if dataframes:
-    datos_mibici = pd.concat(dataframes, ignore_index=True)
+#Generación del gráfico
+sns.set(style = "darkgrid")
+sns.histplot(data = datos_df[histo_selected])
+ax1.set_title('Histograma de Valores')
+ax1.set_xlabel(histo_selected)
+ax1.set_ylabel('Frecuencia')
+
+#----- GRÁFICO DE LÍNEAS PARA LAS GANANCIAS -----------------------
+#Renderización del gráfico
+colum_izq.pyplot(fig1)
+
+#Título para el gráfico
+colum_der.subheader('Ganancias')
+
+#Inicialización del gráfico
+fig2, ax2 = plt.subplots()
+
+#Generación del gráfico
+if ganan_selected == 'Iñaki González':
+    periodo_df = datos_df.iloc[0]
+elif ganan_selected == 'María Cázares':
+    periodo_df = datos_df.iloc[1]
+elif ganan_selected == 'José García':
+    periodo_df = datos_df.iloc[2]
+elif ganan_selected == 'Jérémie Muñoz':
+    periodo_df = datos_df.iloc[3]
+elif ganan_selected == 'Agnès Villalón':
+    periodo_df = datos_df.iloc[4]
+elif ganan_selected == 'Bérénice Pitkämäki':
+    periodo_df = datos_df.iloc[5]
+elif ganan_selected == 'Geneviève Rukajärvi':
+    periodo_df = datos_df.iloc[6]
+elif ganan_selected == 'Hélène Ñuñoz':
+    periodo_df = datos_df.iloc[7]
+elif ganan_selected == 'Ñaguí Grönholm':
+    periodo_df = datos_df.iloc[8]
+elif ganan_selected == 'Iván Földváry':
+    periodo_df = datos_df.iloc[9]
 else:
-    st.error("No se encontraron archivos CSV.")
+    periodo_df = datos_df
+periodo_df = periodo_df.transpose()
+periodo_df = periodo_df.to_frame()
+periodo_df = periodo_df.rename(columns = {1: 'MES'})
+periodo_df = periodo_df.drop(['NOMBRE','APELLIDO','CIUDAD'])
+plt.plot(periodo_df)
+ax2.set_title('Ganancias Mensuales por Persona')
+ax2.set_xlabel(ganan_selected)
+ax2.set_ylabel('Ganancias')
 
-# Mostrar la información básica del DataFrame
-st.write("Vista de los primeros registros del DataFrame:")
-st.dataframe(datos_mibici.head())
+#Renderización del gráfico
+colum_der.pyplot(fig2)
+st.divider()
 
-st.write("Información del DataFrame:")
-st.write(datos_mibici.info())
+#----- GRÁFICO DE CORRELACIÓN DE LOS MESES ------------------------
+#Título para el gráfico
+st.subheader('Matriz de Correlación')
 
-#------------------------------------------------------------------
-#----- CONFIGURACIÓN DE GRÁFICOS EN EL PANEL CENTRAL --------------
-#------------------------------------------------------------------
-st.sidebar.markdown("## Configuración de Gráficos")
-anio_seleccionado = st.sidebar.selectbox('Selecciona el Año para Mostrar Datos:', datos_mibici['Anio_viaje'].unique())
-st.sidebar.divider()
+#Inicialización del gráfico
+fig3, ax3 = plt.subplots()
 
-# Filtrar por el año seleccionado
-datos_filtrados = datos_mibici[datos_mibici['Anio_viaje'] == anio_seleccionado]
+#Generación del gráfico
+df_corr = datos_df[mes_multi_selected].corr()
+sns.heatmap(df_corr, annot = anotacion, fmt='.2f', cmap = color_selected)
 
-#----- HISTOGRAMA DE AÑOS DE NACIMIENTO ---------------------------
-st.markdown(f"### Histograma del Año de Nacimiento para el Año {anio_seleccionado}")
-plt.figure(figsize=(10, 6))
-sns.histplot(datos_filtrados['Anio_de_nacimiento'], bins=20, kde=True, color='skyblue')
-plt.title(f'Histograma de Año de Nacimiento ({anio_seleccionado})')
-plt.xlabel('Año de Nacimiento')
-plt.ylabel('Frecuencia')
-st.pyplot(plt)
+#Renderización del gráfico
+st.pyplot(fig3)
+st.divider()
 
-#----- GRÁFICO DE DISPERSIÓN --------------------------------------
-st.markdown(f"### Gráfico de Dispersión: Año de Nacimiento vs Origen_Id ({anio_seleccionado})")
-plt.figure(figsize=(10, 6))
-plt.scatter(datos_filtrados['Anio_de_nacimiento'], datos_filtrados['Origen_Id'], color='purple', alpha=0.5)
-plt.title(f'Dispersión de Año de Nacimiento vs Origen ({anio_seleccionado})')
-plt.xlabel('Año de Nacimiento')
-plt.ylabel('Origen_Id')
-st.pyplot(plt)
+# GANANCIAS DE LA CIUDAD
+st.title("Ganancias por Ciudad")
 
-#----- GRÁFICO DE PIE: VIAJES POR AÑO -----------------------------
-st.markdown(f"### Distribución de Viajes por Año")
-viajes_por_anio = datos_mibici.groupby('Anio_viaje').size().reset_index(name='Cantidad_viajes')
-plt.figure(figsize=(8, 8))
-viajes_por_anio.set_index('Anio_viaje').plot(kind='pie', y='Cantidad_viajes', autopct='%1.1f%%', legend=False)
-plt.title("Viajes por Año")
-plt.ylabel('')
-st.pyplot(plt)
+# Grafico sobre ganancias por ciudad
+ciudades = ganancias_ciudad['Ciudad']
+gan_ciu = ganancias_ciudad['Ganancia']
 
-#------------------------------------------------------------------
-#----- OPCIONES ADICIONALES EN LA BARRA LATERAL -------------------
-#------------------------------------------------------------------
-# Matriz de correlación
-st.sidebar.markdown("### Visualización de Matriz de Correlación")
-columnas_numericas = datos_mibici.select_dtypes(include=[np.number]).columns.tolist()
-columnas_seleccionadas = st.sidebar.multiselect('Selecciona las Columnas para la Matriz de Correlación:', columnas_numericas, default=columnas_numericas)
+fig4, ax4 = plt.subplots()
 
-if columnas_seleccionadas:
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(datos_mibici[columnas_seleccionadas].corr(), annot=True, cmap='coolwarm')
-    plt.title('Matriz de Correlación')
-    st.pyplot(plt)
-else:
-    st.warning("Selecciona al menos una columna para mostrar la matriz de correlación.")
+ax4.bar(ciudades, gan_ciu, color='blue')
+ax4.set_title("Ganancias por Ciudad")
+ax4.set_xlabel("Ciudades")
+ax4.set_xticklabels(ciudades, rotation=75)
+ax4.set_ylabel("Ganancias")
 
-#------------------------------------------------------------------
-#----- DESPEDIDA --------------------------------------------------
-#------------------------------------------------------------------
-st.markdown("### ¡Gracias por usar la aplicación de análisis de MiBici!")
+st.pyplot(fig4)
 """
