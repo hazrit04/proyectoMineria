@@ -55,7 +55,7 @@ st.sidebar.divider()
 #----- NÚMERO DE VIAJES POR AÑO -----------------------------------------
 st.subheader('Agrupación viajes por estaciones')
 #io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png")
-st.image(io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png"), width = 500)
+st.image(io.imread(r"./Imagenes_Proyecto/Agrupacion_por_estaciones.png"))
 """
 #----- HISTOGRAMA POR MES -----------------------------------------
 #Definición de las columnas
